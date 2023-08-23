@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 public class NoFortnite
 {
     public static final String MODID = "nofortnite";
-    private static final Logger LOGGER = LogUtils.getLogger();
+
     public NoFortnite()
     {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(CombatEventHandler.class);
     }
 }
