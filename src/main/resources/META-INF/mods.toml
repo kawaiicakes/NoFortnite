@@ -8,11 +8,11 @@ modId="nofortnite"
 version="1.0.0"
 displayName="No Fortnite!"
 displayURL="https://github.com/kawaiicakes/NoFortnite/"
-logoFile="templatemod.png"
-credits="Thanks to ME!"
+logoFile="nofortnite.png"
+credits="Thanks to pOtAto__bOy on Curseforge for the inhibited effect. https://www.curseforge.com/minecraft/mc-mods/modern-inhibited"
 authors="kawaiicakes"
 description='''
-This is a template used for my mods so I can just copy paste this for a new 1.19.2 dev environment lol
+Mod preventing players from building while in combat.
 '''
 
 [[dependencies.nofortnite]]

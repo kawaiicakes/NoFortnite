@@ -1,10 +1,8 @@
 package io.github.kawaiicakes.nofortnite;
 
-import com.teampotato.moderninhibited.InhibitedEffect;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -15,10 +13,14 @@ public class CombatEventHandler {
     public static void livingDamageEvent(LivingDamageEvent event) {
         if (!(event.getEntity().level.isClientSide())) {
 
-            //TODO: config, translation key
-            if (event.getSource().getEntity() instanceof ServerPlayer && event.getEntity() instanceof ServerPlayer target) {
+            //TODO: config
+            if (event.getSource().getEntity() instanceof ServerPlayer source &&
+                    event.getEntity() instanceof ServerPlayer target) {
                 target.addEffect(new MobEffectInstance(INHIBITED.get(), 1200, 1));
-                target.sendSystemMessage(Component.translatable("combat.blocked"), true);
+                source.addEffect(new MobEffectInstance(INHIBITED.get(), 1200, 1));
+
+                target.sendSystemMessage(Component.translatable("anti_fortnite"), true);
+                source.sendSystemMessage(Component.translatable("anti_fortnite"), true);
             }
         }
     }
