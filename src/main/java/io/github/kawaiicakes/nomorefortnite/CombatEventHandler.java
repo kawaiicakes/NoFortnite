@@ -27,8 +27,8 @@ public class CombatEventHandler {
                 if (CONFIG.NOTIFY_TARGET && !target.hasEffect(INHIBITED.get()))
                     target.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
 
-                if (CONFIG.INHIBIT_ATTACKER) source.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_ATTACKER * TPS, 1, false, false, true));
-                if (CONFIG.INHIBIT_TARGET) target.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_TARGET * TPS, 1, false, false, true));
+                if (CONFIG.INHIBIT_ATTACKER) source.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_ATTACKER * TPS, 0, false, false, true));
+                if (CONFIG.INHIBIT_TARGET) target.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_TARGET * TPS, 0, false, false, true));
             }
         }
     }
