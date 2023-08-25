@@ -1,17 +1,17 @@
-package io.github.kawaiicakes.nofortnite;
+package io.github.kawaiicakes.nomorefortnite;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(NoFortnite.MODID)
-public class NoFortnite
+@Mod(NoMoreFortnite.MODID)
+public class NoMoreFortnite
 {
-    public static final String MODID = "nofortnite";
+    public static final String MODID = "nomorefortnite";
     public static Config.ConfigEntries CONFIG = Config.loadConfig();
 
-    public NoFortnite()
+    public NoMoreFortnite()
     {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 

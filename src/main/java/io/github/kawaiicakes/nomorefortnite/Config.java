@@ -1,4 +1,4 @@
-package io.github.kawaiicakes.nofortnite;
+package io.github.kawaiicakes.nomorefortnite;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 public class Config {
     public static final Gson BUILDER = (new GsonBuilder()).setPrettyPrinting().create();
 
-    public static final Path file = FMLPaths.GAMEDIR.get().toAbsolutePath().resolve("config").resolve("nofortnite.json");
+    public static final Path file = FMLPaths.GAMEDIR.get().toAbsolutePath().resolve("config").resolve("nomorefortnite.json");
 
     public static ConfigEntries loadConfig() {
         try {

@@ -17,8 +17,8 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
 version = '1.0.0'
-group = 'io.github.kawaiicakes.nofortnite'
-archivesBaseName = 'nofortnite'
+group = 'io.github.kawaiicakes.nomorefortnite'
+archivesBaseName = 'nomorefortnite'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -33,7 +33,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'nofortnite'
+            property 'forge.enabledGameTestNamespaces', 'nomorefortnite'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
@@ -51,7 +51,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'nofortnite'
+            property 'forge.enabledGameTestNamespaces', 'nomorefortnite'
 
             mods {
                 templatemod {
@@ -67,7 +67,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'nofortnite'
+            property 'forge.enabledGameTestNamespaces', 'nomorefortnite'
 
             mods {
                 templatemod {
@@ -83,7 +83,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
             
-            args '--mod', 'nofortnite', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'nomorefortnite', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 templatemod {
@@ -114,7 +114,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "nofortnite",
+                "Specification-Title"     : "nomorefortnite",
                 "Specification-Vendor"    : "kawaiicakes",
                 "Specification-Version"   : "1.0.0",
                 "Implementation-Title"    : project.name,

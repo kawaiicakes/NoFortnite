@@ -1,4 +1,4 @@
-package io.github.kawaiicakes.nofortnite;
+package io.github.kawaiicakes.nomorefortnite;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -7,7 +7,7 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import static com.teampotato.moderninhibited.ModernInhibited.INHIBITED;
-import static io.github.kawaiicakes.nofortnite.NoFortnite.CONFIG;
+import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.CONFIG;
 
 public class CombatEventHandler {
     @SubscribeEvent

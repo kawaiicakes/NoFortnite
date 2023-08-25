@@ -4,26 +4,32 @@ license="MIT"
 issueTrackerURL="https://github.com/kawaiicakes/NoFortnite/issues"
 
 [[mods]]
-modId="nofortnite"
+modId="nomorefortnite"
 version="1.0.0"
-displayName="No Fortnite!"
+displayName="No More Fortnite!"
 displayURL="https://github.com/kawaiicakes/NoFortnite/"
-logoFile="nofortnite.png"
-credits="Thanks to pOtAto__bOy on Curseforge for the inhibited effect. https://www.curseforge.com/minecraft/mc-mods/modern-inhibited"
+logoFile="nomorefortnite.png"
+credits="Thanks also to ElovinDev for her simple config code."
 authors="kawaiicakes"
 description='''
-Mod preventing players from building while in combat.
+Mod preventing players from building while in combat. Requires Modern Inhibited.
 '''
 
-[[dependencies.nofortnite]]
+[[dependencies.nomorefortnite]]
     modId="forge"
     mandatory=true
     versionRange="[43,)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.nofortnite]]
+[[dependencies.nomorefortnite]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.nomorefortnite]]
+modId="moderninhibited"
+mandatory=true
+versionRange="[1.19.2,1.20)"
+ordering="NONE"
+side="BOTH"
