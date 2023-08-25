@@ -37,5 +37,7 @@ public class Config {
 
         public boolean NOTIFY_ATTACKER = true;
         public boolean NOTIFY_TARGET = true;
+
+        public boolean INHIBITION_IS_REMOVABLE = false;
     }
 }
