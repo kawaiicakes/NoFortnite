@@ -9,7 +9,7 @@ version="1.0.0"
 displayName="No More Fortnite!"
 displayURL="https://github.com/kawaiicakes/NoFortnite/"
 logoFile="nomorefortnite.png"
-credits="Thanks also to ElovinDev for her simple config code."
+credits="Thanks also to ElovinDev for her simple config code. Also thanks to axolotlite for helping me test."
 authors="kawaiicakes"
 description='''
 Mod preventing players from building while in combat. Requires Modern Inhibited.
