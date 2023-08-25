@@ -16,7 +16,7 @@ public class NoMoreFortnite
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(CombatEventHandler.class);
+        MinecraftForge.EVENT_BUS.register(InhibitionEventHandler.class);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

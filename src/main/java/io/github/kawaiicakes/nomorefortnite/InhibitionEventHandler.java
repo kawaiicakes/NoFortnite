@@ -10,7 +10,16 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import static com.teampotato.moderninhibited.ModernInhibited.INHIBITED;
 import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.CONFIG;
 
-public class CombatEventHandler {
+/**
+ * Contains event listeners which create and support the Inhibition effect's functionality.
+ */
+public class InhibitionEventHandler {
+    /**
+     * <code>LivingDamageEvent</code> is used as opposed to <code>PlayerEvent.AttackEntityEvent</code> to hopefully
+     * catch all cases where a player damages another player. Theoretically works so long as mods implementing weapons
+     * correctly assign a <code>DamageSource</code> with source and target.
+     * @param event the <code>LivingDamageEvent</code> being checked for a player-vs-player interaction.
+     */
     @SubscribeEvent
     public static void livingDamageEvent(LivingDamageEvent event) {
         if (!(event.getEntity().level.isClientSide())) {
