@@ -45,6 +45,10 @@ public class InhibitionEventHandler {
         }
     }
 
+    /**
+     * Stops players from removing Inhibited if the method used fires on the <code>MobEffectEvent.Remove</code> event.
+     * @param event the <code>MobEffectEvent.Remove</code> event being listened to for the matching arguments.
+     */
     @SubscribeEvent
     public static void effectRemovalEvent(MobEffectEvent.Remove event) {
         if (!event.getEntity().getLevel().isClientSide() && !CONFIG.INHIBITION_IS_REMOVABLE) {
