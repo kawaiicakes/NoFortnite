@@ -1,4 +1,4 @@
-package io.github.kawaiicakes.nomorefortnite;
+package io.github.kawaiicakes.nomorefortnite.handlers;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -11,9 +11,9 @@ import static com.teampotato.moderninhibited.ModernInhibited.INHIBITED;
 import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.CONFIG;
 
 /**
- * Contains event listeners which create and support the Inhibition effect's functionality.
+ * Contains event listeners which create mod functionality.
  */
-public class InhibitionEventHandler {
+public class PvPHandler {
     /**
      * <code>LivingDamageEvent</code> is used as opposed to <code>PlayerEvent.AttackEntityEvent</code> to hopefully
      * catch all cases where a player damages another player. Theoretically works so long as mods implementing weapons
