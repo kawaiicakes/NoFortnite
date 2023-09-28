@@ -23,6 +23,7 @@ public class NoMoreFortnite
 
     public NoMoreFortnite()
     {
+        EFFECT_DEFERRED_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
         MinecraftForge.EVENT_BUS.register(this);
