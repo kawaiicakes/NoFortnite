@@ -38,7 +38,7 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
-                templatemod {
+                nomorefortnite {
                     source sourceSets.main
                 }
             }
@@ -54,7 +54,7 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'nomorefortnite'
 
             mods {
-                templatemod {
+                nomorefortnite {
                     source sourceSets.main
                 }
             }
@@ -70,7 +70,7 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'nomorefortnite'
 
             mods {
-                templatemod {
+                nomorefortnite {
                     source sourceSets.main
                 }
             }
@@ -86,7 +86,7 @@ minecraft {
             args '--mod', 'nomorefortnite', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                templatemod {
+                nomorefortnite {
                     source sourceSets.main
                 }
             }
@@ -108,7 +108,7 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.14'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation fg.deobf("curse.maven:modern-inhibited-881733:4613431")
+    implementation fg.deobf("curse.maven:modern-inhibited-881733:4768496")
 }
 
 jar {
@@ -116,7 +116,7 @@ jar {
         attributes([
                 "Specification-Title"     : "nomorefortnite",
                 "Specification-Vendor"    : "kawaiicakes",
-                "Specification-Version"   : "1.0.0",
+                "Specification-Version"   : "${project.version}",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "kawaiicakes",

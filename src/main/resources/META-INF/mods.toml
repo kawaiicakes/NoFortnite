@@ -4,16 +4,16 @@ license="MIT"
 issueTrackerURL="https://github.com/kawaiicakes/NoFortnite/issues"
 
 [[mods]]
-modId="nomorefortnite"
-version="1.0.0"
-displayName="No More Fortnite!"
-displayURL="https://github.com/kawaiicakes/NoFortnite/"
-logoFile="nomorefortnite.png"
-credits="Thanks also to ElovinDev for her simple config code. Also thanks to axolotlite for helping me test."
-authors="kawaiicakes"
-description='''
-Mod preventing players from building while in combat. Requires Modern Inhibited.
-'''
+    modId="nomorefortnite"
+    version="2.0.0"
+    displayName="No More Fortnite!"
+    displayURL="https://github.com/kawaiicakes/NoFortnite/"
+    logoFile="nomorefortnite.png"
+    credits="Thanks to ElocinDev for her simple config code. Also thanks to axolotlite for helping me test."
+    authors="kawaiicakes"
+    description='''
+    Mod preventing players from building while in combat. Requires Modern Inhibited.
+    '''
 
 [[dependencies.nomorefortnite]]
     modId="forge"
@@ -24,12 +24,12 @@ Mod preventing players from building while in combat. Requires Modern Inhibited.
 [[dependencies.nomorefortnite]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2,1.20)"
+    versionRange="[1.19.2]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.nomorefortnite]]
-modId="moderninhibited"
-mandatory=true
-versionRange="[1.19.2,1.20)"
-ordering="NONE"
-side="BOTH"
+    modId="moderninhibited"
+    mandatory=true
+    versionRange="[1.0.1)"
+    ordering="NONE"
+    side="BOTH"
