@@ -26,8 +26,8 @@ public class Config {
         builder.pop();
         builder.push("Combatlogging");
 
-        COMBATLOG_ATTACKER = builder.define("attacker cannot combatlog", true);
-        COMBATLOG_TARGET = builder.define("target cannot combatlog", true);
+        COMBATLOG_ATTACKER = builder.define("attacker should not be able to combatlog", true);
+        COMBATLOG_TARGET = builder.define("target should not be able to combatlog", true);
         TIME_COMBATLOG_ATTACKER = builder
                 .comment("The time in seconds, for the attacker, to no longer be combatlogged.")
                 .defineInRange("attacker combatlog timer", 60.00, 1.00, Double.MAX_VALUE);
@@ -36,7 +36,7 @@ public class Config {
                 .defineInRange("target combatlog timer", 60.00, 1.00, Double.MAX_VALUE);
 
         builder.pop();
-        builder.push("Notification");
+        builder.comment("Any mod that makes a message appear when you enter PvP is likely to break this mod's notifications.").push("Notification");
 
         NOTIFY_ATTACKER = builder
                 .comment("Whether the attacker should be notified that they are in PvP.")
