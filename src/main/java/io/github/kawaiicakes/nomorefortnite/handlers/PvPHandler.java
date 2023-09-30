@@ -25,21 +25,38 @@ public class PvPHandler {
         if (!(event.getEntity().level.isClientSide())) {
 
             //TODO: configurable option to toggle ability to remove inhibited effect (i.e. w/ milk)
+            //TODO: allow entity target types to be configured? (shooting at a tank would not put the shooter in combat by default)
             if (event.getSource().getEntity() instanceof ServerPlayer source &&
                     event.getEntity() instanceof ServerPlayer target) {
-                final int tps = 20;
 
-                if (CONFIG.NOTIFY_ATTACKER && !source.hasEffect(INHIBITED.get()))
-                    source.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
-                if (CONFIG.NOTIFY_TARGET && !target.hasEffect(INHIBITED.get()))
-                    target.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
+                inhibitAttacker(source);
+                inhibitTarget(target);
+            }
+        }
+    }
 
-                if (CONFIG.INHIBIT_ATTACKER) source
-                        .addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_ATTACKER * tps, 0,
-                        false, false, true));
-                if (CONFIG.INHIBIT_TARGET) target
-                        .addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_TARGET * tps, 0,
-                        false, false, true));
+    private static void inhibitAttacker(ServerPlayer attacker) {
+        if (CONFIG.INHIBIT_ATTACKER) {
+            final int tps = 20;
+
+            attacker.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_ATTACKER * tps, 0,
+                    false, false, true));
+
+            if (CONFIG.NOTIFY_ATTACKER) {
+                attacker.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
+            }
+        }
+    }
+
+    private static void inhibitTarget(ServerPlayer target) {
+        if (CONFIG.INHIBIT_TARGET) {
+            final int tps = 20;
+
+            target.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_TARGET * tps, 0,
+                    false, false, true));
+
+            if (CONFIG.NOTIFY_TARGET) {
+                target.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
             }
         }
     }
