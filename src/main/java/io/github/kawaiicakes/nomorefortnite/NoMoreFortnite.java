@@ -43,6 +43,6 @@ public class NoMoreFortnite
 
         COMBAT_LOG = EFFECT_DEFERRED_REGISTER.register("combat_logged", CombatLogEffect::new);
         LIGMA_BALLS = SOUND_EVENT_DEFERRED_REGISTER
-                .register("level.player.death.ligma", () -> new SoundEvent(new ResourceLocation("death_by_ligma")));
+                .register("player.death_ligma", () -> new SoundEvent(new ResourceLocation("death_by_ligma")));
     }
 }
