@@ -2,6 +2,7 @@ package io.github.kawaiicakes.nomorefortnite.handlers;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,7 +21,9 @@ import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.LIGMA_BALLS;
  * Contains event listeners which create mod functionality.
  */
 public class PvPHandler {
-    public static final DamageSource LIGMA = new DamageSource("ligma") {
+    // FIXME incompatibility with Incapacitated; see Incapacitated's PlayerCapabilityManager L129
+    // TODO extract to new subclass
+    public static final DamageSource LIGMA = new DamageSource("outOfWorld") {
         @Override
         public @NotNull Component getLocalizedDeathMessage(@NotNull LivingEntity pLivingEntity) {
             return Component.translatable("chat.player.death_by_ligma", pLivingEntity.getDisplayName());
@@ -47,11 +50,13 @@ public class PvPHandler {
         }
     }
 
+    // FIXME crash on reconnect with Music Triggers
+    // FIXME sound does not play
     @SubscribeEvent
     public static void onDisconnectEvent(PlayerEvent.PlayerLoggedOutEvent event) {
         if (event.getEntity() instanceof ServerPlayer player && !(player.level.isClientSide())) {
             if (player.hasEffect(COMBAT_LOG.get())) {
-                player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), player.getSoundSource(), 2.5F, 1.0F, false);
+                player.level.playSound (player, player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), player.getSoundSource(), 2.5F, 1.0F);
                 player.hurt(LIGMA, Float.MAX_VALUE);
             }
         }
@@ -76,6 +81,7 @@ public class PvPHandler {
                 false, false, true));
     }
 
+    // FIXME: doesn't work
     private static void notifyPlayer(@NotNull ServerPlayer player, boolean inhibitPlayer, double inhibitTime,
                                      boolean combatlogPlayer, double combatlogTime) {
         if (!(player.hasEffect(INHIBITED.get()))) {
