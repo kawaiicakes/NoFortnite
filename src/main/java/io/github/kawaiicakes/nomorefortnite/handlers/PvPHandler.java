@@ -41,21 +41,15 @@ public class PvPHandler {
             if (event.getSource().getEntity() instanceof ServerPlayer attacker &&
                     event.getEntity() instanceof ServerPlayer target) {
 
-                if (INHIBIT_ATTACKER.get()) inhibitPlayer(attacker, TIME_INHIBIT_ATTACKER.get(), NOTIFY_ATTACKER.get());
-                if (COMBATLOG_ATTACKER.get()) combatlogPlayer(attacker, TIME_COMBATLOG_ATTACKER.get());
-                if (INHIBIT_TARGET.get()) inhibitPlayer(target, TIME_INHIBIT_TARGET.get(), NOTIFY_TARGET.get());
-                if (COMBATLOG_TARGET.get()) combatlogPlayer(attacker, TIME_COMBATLOG_TARGET.get());
+                applyDebuffsToPlayer(attacker, INHIBIT_ATTACKER.get(), TIME_INHIBIT_ATTACKER.get(), COMBATLOG_ATTACKER.get(), TIME_COMBATLOG_ATTACKER.get(), NOTIFY_ATTACKER.get());
+                applyDebuffsToPlayer(target, INHIBIT_TARGET.get(), TIME_INHIBIT_TARGET.get(), COMBATLOG_TARGET.get(), TIME_COMBATLOG_TARGET.get(), NOTIFY_TARGET.get());
             }
         }
     }
 
     @SubscribeEvent
     public static void onDisconnectEvent(PlayerEvent.PlayerLoggedOutEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player) killPlayerIfInCombat(player);
-    }
-
-    private static void killPlayerIfInCombat(@NotNull ServerPlayer player) {
-        if (!player.level.isClientSide()) {
+        if (event.getEntity() instanceof ServerPlayer player && !(player.level.isClientSide())) {
             if (player.hasEffect(COMBAT_LOG.get())) {
                 player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), player.getSoundSource(), 2.5F, 1.0F, false);
                 player.hurt(LIGMA, Float.MAX_VALUE);
@@ -63,25 +57,42 @@ public class PvPHandler {
         }
     }
 
-    private static void inhibitPlayer(@NotNull ServerPlayer player, double time, boolean notify) {
+    private static void applyDebuffsToPlayer(ServerPlayer player, boolean inhibitPlayer, double inhibitTime,
+                                             boolean combatlogPlayer, double combatlogTime, boolean notifyPlayer) {
         if (!(player.gameMode.isCreative())) {
-            final double tps = 20;
+            if (inhibitPlayer) inhibitPlayer(player, timeInTicks(inhibitTime));
+            if (combatlogPlayer) combatlogPlayer(player, timeInTicks(combatlogTime));
+            if (notifyPlayer) notifyPlayer(player, inhibitPlayer, inhibitTime, combatlogPlayer, combatlogTime);
+        }
+    }
 
-            player.addEffect(new MobEffectInstance(INHIBITED.get(), (int) Math.ceil(time * tps), 0,
-                    false, false, true));
+    private static void inhibitPlayer(@NotNull ServerPlayer player, int time) {
+        player.addEffect(new MobEffectInstance(INHIBITED.get(), time, 0,
+                false, false, true));
+    }
 
-            if (notify && !(player.hasEffect(INHIBITED.get()))) {
-                player.sendSystemMessage(Component.translatable("chat.nomorefortnite.inhibited", time).withStyle(ChatFormatting.RED), true);
+    private static void combatlogPlayer(@NotNull ServerPlayer player, int time) {
+        player.addEffect(new MobEffectInstance(COMBAT_LOG.get(), time, 0,
+                false, false, true));
+    }
+
+    private static void notifyPlayer(@NotNull ServerPlayer player, boolean inhibitPlayer, double inhibitTime,
+                                     boolean combatlogPlayer, double combatlogTime) {
+        if (!(player.hasEffect(INHIBITED.get()))) {
+            if (inhibitPlayer && !combatlogPlayer) {
+                player.sendSystemMessage(
+                        Component.translatable("chat.nomorefortnite.inhibited", inhibitTime).withStyle(ChatFormatting.RED), true);
+            } else if (!inhibitPlayer && combatlogPlayer) {
+                player.sendSystemMessage(
+                        Component.translatable("chat.nomorefortnite.combatlog", combatlogTime).withStyle(ChatFormatting.RED), true);
+            } else {
+                player.sendSystemMessage(
+                        Component.translatable("chat.nomorefortnite.debuffed", inhibitTime, combatlogTime).withStyle(ChatFormatting.RED), true);
             }
         }
     }
 
-    private static void combatlogPlayer(@NotNull ServerPlayer player, double time) {
-        if (!(player.gameMode.isCreative())) {
-            final double tps = 20;
-
-            player.addEffect(new MobEffectInstance(COMBAT_LOG.get(), (int) Math.ceil(time * tps), 0,
-                    false, false, true));
-        }
+    private static int timeInTicks(double time) {
+        return (int) Math.ceil(time * 20);
     }
 }
