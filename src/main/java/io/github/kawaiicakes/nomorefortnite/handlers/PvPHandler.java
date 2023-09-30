@@ -3,7 +3,9 @@ package io.github.kawaiicakes.nomorefortnite.handlers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,6 +20,13 @@ import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.LIGMA_BALLS;
  * Contains event listeners which create mod functionality.
  */
 public class PvPHandler {
+    public static final DamageSource LIGMA = new DamageSource("ligma") {
+        @Override
+        public @NotNull Component getLocalizedDeathMessage(@NotNull LivingEntity pLivingEntity) {
+            return Component.translatable("chat.player.death_by_ligma", pLivingEntity.getDisplayName());
+        }
+    }.bypassArmor().bypassInvul();
+
     /**
      * <code>LivingDamageEvent</code> is used as opposed to <code>PlayerEvent.AttackEntityEvent</code> to hopefully
      * catch all cases where a player damages another player. Theoretically works so long as mods implementing weapons
@@ -33,7 +42,9 @@ public class PvPHandler {
                     event.getEntity() instanceof ServerPlayer target) {
 
                 if (INHIBIT_ATTACKER.get()) inhibitPlayer(attacker, TIME_INHIBIT_ATTACKER.get(), NOTIFY_ATTACKER.get());
+                if (COMBATLOG_ATTACKER.get()) combatlogPlayer(attacker, TIME_COMBATLOG_ATTACKER.get());
                 if (INHIBIT_TARGET.get()) inhibitPlayer(target, TIME_INHIBIT_TARGET.get(), NOTIFY_TARGET.get());
+                if (COMBATLOG_TARGET.get()) combatlogPlayer(attacker, TIME_COMBATLOG_TARGET.get());
             }
         }
     }
@@ -43,11 +54,11 @@ public class PvPHandler {
         if (event.getEntity() instanceof ServerPlayer player) killPlayerIfInCombat(player);
     }
 
-    private static void killPlayerIfInCombat(ServerPlayer player) {
+    private static void killPlayerIfInCombat(@NotNull ServerPlayer player) {
         if (!player.level.isClientSide()) {
             if (player.hasEffect(COMBAT_LOG.get())) {
-                player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), player.getSoundSource(), 5.0F, 1.0F, false);
-                player.kill();
+                player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), player.getSoundSource(), 2.5F, 1.0F, false);
+                player.hurt(LIGMA, Float.MAX_VALUE);
             }
         }
     }
@@ -60,8 +71,17 @@ public class PvPHandler {
                     false, false, true));
 
             if (notify && !(player.hasEffect(INHIBITED.get()))) {
-                player.sendSystemMessage(Component.translatable("chat.nomorefortnite.inhibited").withStyle(ChatFormatting.RED), true);
+                player.sendSystemMessage(Component.translatable("chat.nomorefortnite.inhibited", time).withStyle(ChatFormatting.RED), true);
             }
+        }
+    }
+
+    private static void combatlogPlayer(@NotNull ServerPlayer player, double time) {
+        if (!(player.gameMode.isCreative())) {
+            final double tps = 20;
+
+            player.addEffect(new MobEffectInstance(COMBAT_LOG.get(), (int) Math.ceil(time * tps), 0,
+                    false, false, true));
         }
     }
 }

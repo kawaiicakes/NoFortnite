@@ -1,4 +1,5 @@
 {
   "subtitle.nomorefortnite.ligma": "Heavy bass drop",
-  "chat.nomorefortnite.inhibited": "You are in combat and may no longer build!"
+  "chat.nomorefortnite.inhibited": "You are in combat for %1$s and may no longer build!",
+  "chat.player.death_by_ligma": "%1$s wanted to know who the hell is Steve Jobs"
 }
