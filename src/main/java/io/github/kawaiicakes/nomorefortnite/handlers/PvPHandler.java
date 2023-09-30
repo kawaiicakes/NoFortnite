@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.jetbrains.annotations.NotNull;
 
 import static com.teampotato.moderninhibited.ModernInhibited.INHIBITED;
 import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.CONFIG;
@@ -35,8 +36,8 @@ public class PvPHandler {
         }
     }
 
-    private static void inhibitAttacker(ServerPlayer attacker) {
-        if (CONFIG.INHIBIT_ATTACKER) {
+    private static void inhibitAttacker(@NotNull ServerPlayer attacker) {
+        if (CONFIG.INHIBIT_ATTACKER && !(attacker.gameMode.isCreative())) {
             final int tps = 20;
 
             attacker.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_ATTACKER * tps, 0,
@@ -48,8 +49,8 @@ public class PvPHandler {
         }
     }
 
-    private static void inhibitTarget(ServerPlayer target) {
-        if (CONFIG.INHIBIT_TARGET) {
+    private static void inhibitTarget(@NotNull ServerPlayer target) {
+        if (CONFIG.INHIBIT_TARGET && !(target.gameMode.isCreative())) {
             final int tps = 20;
 
             target.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_TARGET * tps, 0,
