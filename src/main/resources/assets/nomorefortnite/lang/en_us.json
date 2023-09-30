@@ -5,5 +5,7 @@
   "chat.nomorefortnite.combatlog": "You are combatlogged for %1$s seconds!",
   "chat.nomorefortnite.debuffed": "You may not build for %1$s seconds or leave for %2$s seconds!",
 
+  "effect.nomorefortnite.combat_logged": "Combatlogged",
+
   "chat.player.death_by_ligma": "%1$s wanted to know who the hell is Steve Jobs"
 }
