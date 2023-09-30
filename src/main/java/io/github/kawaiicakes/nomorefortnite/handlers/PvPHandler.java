@@ -64,21 +64,4 @@ public class PvPHandler {
             }
         }
     }
-
-    /* javadoc
-     * Stops players from removing Inhibited if the method used fires on the <code>MobEffectEvent.Remove</code> event.
-     * @param event the <code>MobEffectEvent.Remove</code> event being listened to for the matching arguments.
-     */
-    /* FIXME: This poses a problem if someone gets the effect infinitely. Make non-pvp MobEffectInstances removable still?
-    @SubscribeEvent
-    public static void effectRemovalEvent(MobEffectEvent.Remove event) {
-        if (!event.getEntity().getLevel().isClientSide() && !CONFIG.INHIBITION_IS_REMOVABLE) {
-            if ((event.getEffect() == INHIBITED.get())
-                    && event.getEntity() instanceof ServerPlayer player) {
-                event.setCanceled(true);
-                player.sendSystemMessage(Component.translatable("no_removal_allowed").withStyle(ChatFormatting.RED), true);
-            }
-        }
-    }
-     */
 }
