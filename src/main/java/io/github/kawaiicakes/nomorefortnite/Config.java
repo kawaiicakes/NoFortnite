@@ -18,22 +18,22 @@ public class Config {
         INHIBIT_TARGET = builder.define("target should be inhibited in pvp", true);
         TIME_INHIBIT_ATTACKER = builder
                 .comment("The time in seconds to inhibit the attacker when they enter PvP.")
-                .defineInRange("attacker inhibition timer", 60.00, 0.00, Double.MAX_VALUE);
+                .defineInRange("attacker inhibition timer", 60.00, 1.00, Double.MAX_VALUE);
         TIME_INHIBIT_TARGET = builder
                 .comment("The time in seconds to inhibit the target when they enter PvP.")
-                .defineInRange("target inhibition timer", 60.00, 0.00, Double.MAX_VALUE);
+                .defineInRange("target inhibition timer", 60.00, 1.00, Double.MAX_VALUE);
 
         builder.pop();
-        builder.push("Combat Logging");
+        builder.push("Combatlogging");
 
         COMBATLOG_ATTACKER = builder.define("attacker cannot combatlog", true);
         COMBATLOG_TARGET = builder.define("target cannot combatlog", true);
         TIME_COMBATLOG_ATTACKER = builder
                 .comment("The time in seconds, for the attacker, to no longer be combatlogged.")
-                .defineInRange("attacker combatlog timer", 60.00, 0.00, Double.MAX_VALUE);
+                .defineInRange("attacker combatlog timer", 60.00, 1.00, Double.MAX_VALUE);
         TIME_COMBATLOG_TARGET = builder
                 .comment("The time in seconds, for the target, to no longer be combatlogged.")
-                .defineInRange("target combatlog timer", 60.00, 0.00, Double.MAX_VALUE);
+                .defineInRange("target combatlog timer", 60.00, 1.00, Double.MAX_VALUE);
 
         builder.pop();
         builder.push("Notification");
