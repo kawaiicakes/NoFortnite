@@ -1,6 +1,8 @@
 package io.github.kawaiicakes.nomorefortnite;
 
 import io.github.kawaiicakes.nomorefortnite.handlers.PvPHandler;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -19,8 +21,10 @@ public class NoMoreFortnite
     public static final String MOD_ID = "nomorefortnite";
 
     public static final DeferredRegister<MobEffect> EFFECT_DEFERRED_REGISTER;
+    public static final DeferredRegister<SoundEvent> SOUND_EVENT_DEFERRED_REGISTER;
 
     public static final RegistryObject<MobEffect> COMBAT_LOG;
+    public static final RegistryObject<SoundEvent> LIGMA_BALLS;
 
     public NoMoreFortnite()
     {
@@ -34,6 +38,10 @@ public class NoMoreFortnite
 
     static {
         EFFECT_DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MOD_ID);
+        SOUND_EVENT_DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MOD_ID);
+
         COMBAT_LOG = EFFECT_DEFERRED_REGISTER.register("combat_logged", CombatLogEffect::new);
+        LIGMA_BALLS = SOUND_EVENT_DEFERRED_REGISTER
+                .register("level.player.death.ligma", () -> new SoundEvent(new ResourceLocation("death_by_ligma")));
     }
 }
