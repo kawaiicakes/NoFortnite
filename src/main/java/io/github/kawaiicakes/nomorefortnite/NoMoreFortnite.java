@@ -3,12 +3,15 @@ package io.github.kawaiicakes.nomorefortnite;
 import io.github.kawaiicakes.nomorefortnite.handlers.PvPHandler;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import static io.github.kawaiicakes.nomorefortnite.Config.CONFIG;
 
 @Mod(NoMoreFortnite.MOD_ID)
 public class NoMoreFortnite
@@ -19,19 +22,14 @@ public class NoMoreFortnite
 
     public static final RegistryObject<MobEffect> COMBAT_LOG;
 
-    public static Config.ConfigEntries CONFIG = Config.loadConfig();
-
     public NoMoreFortnite()
     {
         EFFECT_DEFERRED_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(PvPHandler.class);
-    }
-
-    private void setup(final FMLCommonSetupEvent event) {
-        CONFIG = Config.loadConfig();
     }
 
     static {

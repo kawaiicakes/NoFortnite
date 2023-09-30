@@ -1,43 +1,50 @@
 package io.github.kawaiicakes.nomorefortnite;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import net.minecraftforge.fml.loading.FMLPaths;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Config {
-    public static final Gson BUILDER = (new GsonBuilder()).setPrettyPrinting().create();
+    public static ForgeConfigSpec CONFIG;
 
-    public static final Path file = FMLPaths.GAMEDIR.get().toAbsolutePath().resolve("config").resolve("nomorefortnite.json");
+    public static ForgeConfigSpec.DoubleValue TIME_INHIBIT_ATTACKER, TIME_INHIBIT_TARGET, TIME_COMBATLOG_ATTACKER,
+            TIME_COMBATLOG_TARGET;
+    public static ForgeConfigSpec.BooleanValue INHIBIT_ATTACKER, INHIBIT_TARGET, COMBATLOG_ATTACKER, COMBATLOG_TARGET,
+            NOTIFY_ATTACKER, NOTIFY_TARGET;
 
-    public static ConfigEntries loadConfig() {
-        try {
-            if (Files.notExists(file)) {
-                ConfigEntries defaultConfig = new ConfigEntries();
-                String defaultJson = BUILDER.toJson(defaultConfig);
-                Files.writeString(file, defaultJson);
-            }
+    static {
+        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        builder.comment("No more Fortnite! No more $19 cards!").push("Anti-Fortnite");
 
-            return BUILDER.fromJson(Files.readString(file), ConfigEntries.class);
+        INHIBIT_ATTACKER = builder.define("attacker should be inhibited in pvp", true);
+        INHIBIT_TARGET = builder.define("target should be inhibited in pvp", true);
+        TIME_INHIBIT_ATTACKER = builder
+                .comment("The time in seconds to inhibit the attacker when they enter PvP.")
+                .defineInRange("attacker inhibition timer", 60.00, 0.00, Double.MAX_VALUE);
+        TIME_INHIBIT_TARGET = builder
+                .comment("The time in seconds to inhibit the target when they enter PvP.")
+                .defineInRange("target inhibition timer", 60.00, 0.00, Double.MAX_VALUE);
 
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
+        builder.pop();
+        builder.push("Combat Logging");
 
-    public static class ConfigEntries {
-        public boolean INHIBIT_ATTACKER = true;
-        public boolean INHIBIT_TARGET = true;
+        COMBATLOG_ATTACKER = builder.define("attacker cannot combatlog", true);
+        COMBATLOG_TARGET = builder.define("target cannot combatlog", true);
+        TIME_COMBATLOG_ATTACKER = builder
+                .comment("The time in seconds, for the attacker, to no longer be combatlogged.")
+                .defineInRange("attacker combatlog timer", 60.00, 0.00, Double.MAX_VALUE);
+        TIME_COMBATLOG_TARGET = builder
+                .comment("The time in seconds, for the target, to no longer be combatlogged.")
+                .defineInRange("target combatlog timer", 60.00, 0.00, Double.MAX_VALUE);
 
-        public int INHIBIT_TIMER_ATTACKER = 60;
-        public int INHIBIT_TIMER_TARGET = 60;
+        builder.pop();
+        builder.push("Notification");
 
-        public boolean NOTIFY_ATTACKER = true;
-        public boolean NOTIFY_TARGET = true;
+        NOTIFY_ATTACKER = builder
+                .comment("Whether the attacker should be notified that they are in PvP.")
+                .define("notify attacker", true);
+        NOTIFY_TARGET = builder
+                .comment("Whether the target should be notified that they are in PvP.")
+                .define("notify target", true);
 
-        //public boolean INHIBITION_IS_REMOVABLE = false; FIXME
+        CONFIG = builder.build();
     }
 }

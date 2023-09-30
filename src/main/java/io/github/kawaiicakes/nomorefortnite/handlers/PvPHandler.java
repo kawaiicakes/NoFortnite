@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.jetbrains.annotations.NotNull;
 
 import static com.teampotato.moderninhibited.ModernInhibited.INHIBITED;
-import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.CONFIG;
+import static io.github.kawaiicakes.nomorefortnite.Config.*;
 
 /**
  * Contains event listeners which create mod functionality.
@@ -37,26 +37,26 @@ public class PvPHandler {
     }
 
     private static void inhibitAttacker(@NotNull ServerPlayer attacker) {
-        if (CONFIG.INHIBIT_ATTACKER && !(attacker.gameMode.isCreative())) {
-            final int tps = 20;
+        if (INHIBIT_ATTACKER.get() && !(attacker.gameMode.isCreative())) {
+            final double tps = 20;
 
-            attacker.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_ATTACKER * tps, 0,
+            attacker.addEffect(new MobEffectInstance(INHIBITED.get(), (int) Math.ceil(TIME_INHIBIT_ATTACKER.get() * tps), 0,
                     false, false, true));
 
-            if (CONFIG.NOTIFY_ATTACKER) {
+            if (NOTIFY_ATTACKER.get()) {
                 attacker.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
             }
         }
     }
 
     private static void inhibitTarget(@NotNull ServerPlayer target) {
-        if (CONFIG.INHIBIT_TARGET && !(target.gameMode.isCreative())) {
-            final int tps = 20;
+        if (INHIBIT_TARGET.get() && !(target.gameMode.isCreative())) {
+            final double tps = 20;
 
-            target.addEffect(new MobEffectInstance(INHIBITED.get(), CONFIG.INHIBIT_TIMER_TARGET * tps, 0,
+            target.addEffect(new MobEffectInstance(INHIBITED.get(), (int) Math.ceil(TIME_INHIBIT_TARGET.get() * tps), 0,
                     false, false, true));
 
-            if (CONFIG.NOTIFY_TARGET) {
+            if (NOTIFY_TARGET.get()) {
                 target.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
             }
         }
