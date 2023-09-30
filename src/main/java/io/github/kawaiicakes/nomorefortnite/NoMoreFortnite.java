@@ -29,6 +29,7 @@ public class NoMoreFortnite
     public NoMoreFortnite()
     {
         EFFECT_DEFERRED_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        SOUND_EVENT_DEFERRED_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG);
 
