@@ -29,11 +29,11 @@ public class PvPHandler {
         if (!(event.getEntity().level.isClientSide())) {
             //TODO: configurable option to toggle ability to remove inhibited effect (i.e. w/ milk)
             //TODO: allow entity target types to be configured? (shooting at a tank would not put the shooter in combat by default)
-            if (event.getSource().getEntity() instanceof ServerPlayer source &&
+            if (event.getSource().getEntity() instanceof ServerPlayer attacker &&
                     event.getEntity() instanceof ServerPlayer target) {
 
-                inhibitAttacker(source);
-                inhibitTarget(target);
+                if (INHIBIT_ATTACKER.get()) inhibitPlayer(attacker, TIME_INHIBIT_ATTACKER.get(), NOTIFY_ATTACKER.get());
+                if (INHIBIT_TARGET.get()) inhibitPlayer(target, TIME_INHIBIT_TARGET.get(), NOTIFY_TARGET.get());
             }
         }
     }
@@ -52,28 +52,15 @@ public class PvPHandler {
         }
     }
 
-    private static void inhibitAttacker(@NotNull ServerPlayer attacker) {
-        if (INHIBIT_ATTACKER.get() && !(attacker.gameMode.isCreative())) {
+    private static void inhibitPlayer(@NotNull ServerPlayer player, double time, boolean notify) {
+        if (!(player.gameMode.isCreative())) {
             final double tps = 20;
 
-            attacker.addEffect(new MobEffectInstance(INHIBITED.get(), (int) Math.ceil(TIME_INHIBIT_ATTACKER.get() * tps), 0,
+            player.addEffect(new MobEffectInstance(INHIBITED.get(), (int) Math.ceil(time * tps), 0,
                     false, false, true));
 
-            if (NOTIFY_ATTACKER.get() && !(attacker.hasEffect(INHIBITED.get()))) {
-                attacker.sendSystemMessage(Component.translatable("chat.nomorefortnite.inhibited").withStyle(ChatFormatting.RED), true);
-            }
-        }
-    }
-
-    private static void inhibitTarget(@NotNull ServerPlayer target) {
-        if (INHIBIT_TARGET.get() && !(target.gameMode.isCreative())) {
-            final double tps = 20;
-
-            target.addEffect(new MobEffectInstance(INHIBITED.get(), (int) Math.ceil(TIME_INHIBIT_TARGET.get() * tps), 0,
-                    false, false, true));
-
-            if (NOTIFY_TARGET.get() && !(target.hasEffect(INHIBITED.get()))) {
-                target.sendSystemMessage(Component.translatable("chat.nomorefortnite.inhibited").withStyle(ChatFormatting.RED), true);
+            if (notify && !(player.hasEffect(INHIBITED.get()))) {
+                player.sendSystemMessage(Component.translatable("chat.nomorefortnite.inhibited").withStyle(ChatFormatting.RED), true);
             }
         }
     }
