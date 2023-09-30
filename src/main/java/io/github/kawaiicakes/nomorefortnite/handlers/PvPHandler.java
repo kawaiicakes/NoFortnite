@@ -5,11 +5,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.jetbrains.annotations.NotNull;
 
 import static com.teampotato.moderninhibited.ModernInhibited.INHIBITED;
 import static io.github.kawaiicakes.nomorefortnite.Config.*;
+import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.COMBAT_LOG;
+import static io.github.kawaiicakes.nomorefortnite.NoMoreFortnite.LIGMA_BALLS;
 
 /**
  * Contains event listeners which create mod functionality.
@@ -24,7 +27,6 @@ public class PvPHandler {
     @SubscribeEvent
     public static void livingDamageEvent(LivingDamageEvent event) {
         if (!(event.getEntity().level.isClientSide())) {
-
             //TODO: configurable option to toggle ability to remove inhibited effect (i.e. w/ milk)
             //TODO: allow entity target types to be configured? (shooting at a tank would not put the shooter in combat by default)
             if (event.getSource().getEntity() instanceof ServerPlayer source &&
@@ -36,6 +38,20 @@ public class PvPHandler {
         }
     }
 
+    @SubscribeEvent
+    public static void onDisconnectEvent(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) killPlayerIfInCombat(player);
+    }
+
+    private static void killPlayerIfInCombat(ServerPlayer player) {
+        if (!player.level.isClientSide()) {
+            if (player.hasEffect(COMBAT_LOG.get())) {
+                player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), player.getSoundSource(), 5.0F, 1.0F, false);
+                player.kill();
+            }
+        }
+    }
+
     private static void inhibitAttacker(@NotNull ServerPlayer attacker) {
         if (INHIBIT_ATTACKER.get() && !(attacker.gameMode.isCreative())) {
             final double tps = 20;
@@ -43,8 +59,8 @@ public class PvPHandler {
             attacker.addEffect(new MobEffectInstance(INHIBITED.get(), (int) Math.ceil(TIME_INHIBIT_ATTACKER.get() * tps), 0,
                     false, false, true));
 
-            if (NOTIFY_ATTACKER.get()) {
-                attacker.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
+            if (NOTIFY_ATTACKER.get() && !(attacker.hasEffect(INHIBITED.get()))) {
+                attacker.sendSystemMessage(Component.translatable("chat.nomorefortnite.inhibited").withStyle(ChatFormatting.RED), true);
             }
         }
     }
@@ -56,8 +72,8 @@ public class PvPHandler {
             target.addEffect(new MobEffectInstance(INHIBITED.get(), (int) Math.ceil(TIME_INHIBIT_TARGET.get() * tps), 0,
                     false, false, true));
 
-            if (NOTIFY_TARGET.get()) {
-                target.sendSystemMessage(Component.translatable("anti_fortnite").withStyle(ChatFormatting.RED), true);
+            if (NOTIFY_TARGET.get() && !(target.hasEffect(INHIBITED.get()))) {
+                target.sendSystemMessage(Component.translatable("chat.nomorefortnite.inhibited").withStyle(ChatFormatting.RED), true);
             }
         }
     }
