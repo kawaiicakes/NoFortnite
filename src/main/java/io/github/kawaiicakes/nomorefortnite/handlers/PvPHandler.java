@@ -2,8 +2,8 @@ package io.github.kawaiicakes.nomorefortnite.handlers;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,7 +56,8 @@ public class PvPHandler {
     public static void onDisconnectEvent(PlayerEvent.PlayerLoggedOutEvent event) {
         if (event.getEntity() instanceof ServerPlayer player && !(player.level.isClientSide())) {
             if (player.hasEffect(COMBAT_LOG.get())) {
-                player.level.playSound (player, player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), player.getSoundSource(), 2.5F, 1.0F);
+                player.level.playSound(player, player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), SoundSource.PLAYERS, 2.5F, 1.0F);
+                player.getCombatTracker().recordDamage(LIGMA, player.getHealth(), Float.MAX_VALUE);
                 player.hurt(LIGMA, Float.MAX_VALUE);
             }
         }
