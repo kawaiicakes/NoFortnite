@@ -50,7 +50,7 @@ public class PvPHandler {
         }
     }
 
-    // FIXME crash on reconnect with Music Triggers
+    // FIXME crash on reconnect with Music Triggers (The_Computerizer has been contacted)
     // FIXME sound does not play
     @SubscribeEvent
     public static void onDisconnectEvent(PlayerEvent.PlayerLoggedOutEvent event) {
@@ -65,9 +65,9 @@ public class PvPHandler {
     private static void applyDebuffsToPlayer(ServerPlayer player, boolean inhibitPlayer, double inhibitTime,
                                              boolean combatlogPlayer, double combatlogTime, boolean notifyPlayer) {
         if (!(player.gameMode.isCreative())) {
+            if (notifyPlayer) notifyPlayer(player, inhibitPlayer, inhibitTime, combatlogPlayer, combatlogTime);
             if (inhibitPlayer) inhibitPlayer(player, timeInTicks(inhibitTime));
             if (combatlogPlayer) combatlogPlayer(player, timeInTicks(combatlogTime));
-            if (notifyPlayer) notifyPlayer(player, inhibitPlayer, inhibitTime, combatlogPlayer, combatlogTime);
         }
     }
 
@@ -84,7 +84,7 @@ public class PvPHandler {
     // FIXME: doesn't work
     private static void notifyPlayer(@NotNull ServerPlayer player, boolean inhibitPlayer, double inhibitTime,
                                      boolean combatlogPlayer, double combatlogTime) {
-        if (!(player.hasEffect(INHIBITED.get()))) {
+        if (!(player.hasEffect(INHIBITED.get()) || !(player.hasEffect(COMBAT_LOG.get())))) {
             if (inhibitPlayer && !combatlogPlayer) {
                 player.sendSystemMessage(
                         Component.translatable("chat.nomorefortnite.inhibited", inhibitTime).withStyle(ChatFormatting.RED), true);
