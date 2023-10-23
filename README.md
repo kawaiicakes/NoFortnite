@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div align="center">
 
 ___
 
@@ -53,6 +53,6 @@ A special thanks to the creator of the [original](https://modrinth.com/mod/inhib
 
 ___
 
-<div style="text-align: center;">Also, check out my very lovely sponsor and help me <s>take over</s> improve the world!</div>
+<div align="center">Also, check out my very lovely sponsor and help me <s>take over</s> improve the world!</div>
 
 [![Sponsor!](https://raw.githubusercontent.com/kawaiicakes/kawaiicakes.github.io/main/dedimcashley.png 'Sponsor!')](https://dedimc.promo/ashley)
