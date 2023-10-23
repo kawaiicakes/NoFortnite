@@ -22,7 +22,7 @@ ___
     <img alt="GitHub" src="https://img.shields.io/badge/-github-fee8ff?style=for-the-badge&logo=github&labelColor=fcceff">
 </a>
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" rel="nofollow">
-    <img alt="GitHub" src="https://img.shields.io/badge/-discord-fee8ff?style=for-the-badge&logo=discord&labelColor=fcceff">
+    <img alt="Discord" src="https://img.shields.io/badge/-discord-fee8ff?style=for-the-badge&logo=discord&labelColor=fcceff">
 </a>
 
 ___
