@@ -2,8 +2,8 @@ package io.github.kawaiicakes.nomorefortnite.handlers;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -50,13 +50,14 @@ public class PvPHandler {
         }
     }
 
-    // FIXME crash on reconnect with Music Triggers
+    // FIXME crash on reconnect with Music Triggers (The_Computerizer has been contacted)
     // FIXME sound does not play
     @SubscribeEvent
     public static void onDisconnectEvent(PlayerEvent.PlayerLoggedOutEvent event) {
         if (event.getEntity() instanceof ServerPlayer player && !(player.level.isClientSide())) {
             if (player.hasEffect(COMBAT_LOG.get())) {
-                player.level.playSound (player, player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), player.getSoundSource(), 2.5F, 1.0F);
+                player.level.playSound(player, player.getX(), player.getY(), player.getZ(), LIGMA_BALLS.get(), SoundSource.PLAYERS, 2.5F, 1.0F);
+                player.getCombatTracker().recordDamage(LIGMA, player.getHealth(), Float.MAX_VALUE);
                 player.hurt(LIGMA, Float.MAX_VALUE);
             }
         }
@@ -65,9 +66,9 @@ public class PvPHandler {
     private static void applyDebuffsToPlayer(ServerPlayer player, boolean inhibitPlayer, double inhibitTime,
                                              boolean combatlogPlayer, double combatlogTime, boolean notifyPlayer) {
         if (!(player.gameMode.isCreative())) {
+            if (notifyPlayer) notifyPlayer(player, inhibitPlayer, inhibitTime, combatlogPlayer, combatlogTime);
             if (inhibitPlayer) inhibitPlayer(player, timeInTicks(inhibitTime));
             if (combatlogPlayer) combatlogPlayer(player, timeInTicks(combatlogTime));
-            if (notifyPlayer) notifyPlayer(player, inhibitPlayer, inhibitTime, combatlogPlayer, combatlogTime);
         }
     }
 
@@ -84,7 +85,7 @@ public class PvPHandler {
     // FIXME: doesn't work
     private static void notifyPlayer(@NotNull ServerPlayer player, boolean inhibitPlayer, double inhibitTime,
                                      boolean combatlogPlayer, double combatlogTime) {
-        if (!(player.hasEffect(INHIBITED.get()))) {
+        if (!(player.hasEffect(INHIBITED.get()) || !(player.hasEffect(COMBAT_LOG.get())))) {
             if (inhibitPlayer && !combatlogPlayer) {
                 player.sendSystemMessage(
                         Component.translatable("chat.nomorefortnite.inhibited", inhibitTime).withStyle(ChatFormatting.RED), true);
