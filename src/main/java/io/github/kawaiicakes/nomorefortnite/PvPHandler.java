@@ -1,8 +1,7 @@
 package io.github.kawaiicakes.nomorefortnite;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -46,8 +45,8 @@ public class PvPHandler {
 
     private static void notifyPlayer(@NotNull ServerPlayer player, double inhibitTime) {
         if ((player.hasEffect(INHIBITED.get()))) return;
-        player.sendMessage(
-                new TranslatableComponent("chat.nomorefortnite.inhibited", inhibitTime).withStyle(ChatFormatting.RED), Util.NIL_UUID);
+        player.sendSystemMessage(
+                Component.translatable("chat.nomorefortnite.inhibited", inhibitTime).withStyle(ChatFormatting.RED), true);
     }
 
     private static int timeInTicks(double time) {
