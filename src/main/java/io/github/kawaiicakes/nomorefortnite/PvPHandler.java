@@ -28,11 +28,9 @@ public class PvPHandler {
         if (event.getEntity().level.isClientSide()) return;
         if (event.getSource() == null) return;
 
-        if (event.getSource().getEntity() instanceof ServerPlayer attacker &&
-                event.getEntity() instanceof ServerPlayer target) {
-            applyDebuffsToPlayer(attacker, INHIBIT_ATTACKER.get(), TIME_INHIBIT_ATTACKER.get(), NOTIFY_ATTACKER.get());
-            applyDebuffsToPlayer(target, INHIBIT_TARGET.get(), TIME_INHIBIT_TARGET.get(), NOTIFY_TARGET.get());
-        }
+        if (!(event.getSource().getEntity() instanceof ServerPlayer attacker) || !(event.getEntity() instanceof ServerPlayer target)) return;
+        applyDebuffsToPlayer(attacker, INHIBIT_ATTACKER.get(), TIME_INHIBIT_ATTACKER.get(), NOTIFY_ATTACKER.get());
+        applyDebuffsToPlayer(target, INHIBIT_TARGET.get(), TIME_INHIBIT_TARGET.get(), NOTIFY_TARGET.get());
     }
 
     private static void applyDebuffsToPlayer(ServerPlayer player, boolean inhibitPlayer, double inhibitTime, boolean notifyPlayer) {
