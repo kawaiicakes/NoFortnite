@@ -5,10 +5,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class Config {
     public static ForgeConfigSpec CONFIG;
 
-    public static ForgeConfigSpec.DoubleValue TIME_INHIBIT_ATTACKER, TIME_INHIBIT_TARGET, TIME_COMBATLOG_ATTACKER,
-            TIME_COMBATLOG_TARGET;
-    public static ForgeConfigSpec.BooleanValue INHIBIT_ATTACKER, INHIBIT_TARGET, COMBATLOG_ATTACKER, COMBATLOG_TARGET,
-            NOTIFY_ATTACKER, NOTIFY_TARGET;
+    public static ForgeConfigSpec.DoubleValue TIME_INHIBIT_ATTACKER, TIME_INHIBIT_TARGET;
+    public static ForgeConfigSpec.BooleanValue INHIBIT_ATTACKER, INHIBIT_TARGET, NOTIFY_ATTACKER, NOTIFY_TARGET;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -22,18 +20,6 @@ public class Config {
         TIME_INHIBIT_TARGET = builder
                 .comment("The time in seconds to inhibit the target when they enter PvP.")
                 .defineInRange("target inhibition timer", 60.00, 1.00, Double.MAX_VALUE);
-
-        builder.pop();
-        builder.push("Combatlogging");
-
-        COMBATLOG_ATTACKER = builder.define("attacker should not be able to combatlog", true);
-        COMBATLOG_TARGET = builder.define("target should not be able to combatlog", true);
-        TIME_COMBATLOG_ATTACKER = builder
-                .comment("The time in seconds, for the attacker, to no longer be combatlogged.")
-                .defineInRange("attacker combatlog timer", 60.00, 1.00, Double.MAX_VALUE);
-        TIME_COMBATLOG_TARGET = builder
-                .comment("The time in seconds, for the target, to no longer be combatlogged.")
-                .defineInRange("target combatlog timer", 60.00, 1.00, Double.MAX_VALUE);
 
         builder.pop();
         builder.comment("Any mod that makes a message appear when you enter PvP is likely to break this mod's notifications.").push("Notification");

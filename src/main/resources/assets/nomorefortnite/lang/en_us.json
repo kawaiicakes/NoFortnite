@@ -1,11 +1,3 @@
 {
-  "subtitle.nomorefortnite.ligma": "Heavy bass drop",
-
-  "chat.nomorefortnite.inhibited": "You are in combat for %1$s seconds and may no longer build!",
-  "chat.nomorefortnite.combatlog": "You are combatlogged for %1$s seconds!",
-  "chat.nomorefortnite.debuffed": "You may not build for %1$s seconds or leave for %2$s seconds!",
-
-  "effect.nomorefortnite.combat_logged": "Combatlogged",
-
-  "chat.player.death_by_ligma": "%1$s wanted to know who the hell is Steve Jobs"
+  "chat.nomorefortnite.inhibited": "You are in combat for %1$s seconds and may no longer build!"
 }
