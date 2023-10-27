@@ -1,11 +1,11 @@
 modLoader="javafml"
-loaderVersion="[43,)"
+loaderVersion="[40,)"
 license="MIT"
 issueTrackerURL="https://github.com/kawaiicakes/NoFortnite/issues"
 
 [[mods]]
     modId="nomorefortnite"
-    version="1.19.2-2.0.0"
+    version="1.18.2-1.1.0"
     displayName="No More Fortnite!"
     displayURL="https://github.com/kawaiicakes/NoFortnite/"
     logoFile="nomorefortnite.png"
@@ -18,18 +18,18 @@ issueTrackerURL="https://github.com/kawaiicakes/NoFortnite/issues"
 [[dependencies.nomorefortnite]]
     modId="forge"
     mandatory=true
-    versionRange="[43,)"
+    versionRange="[40,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.nomorefortnite]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2]"
+    versionRange="[1.18.2]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.nomorefortnite]]
     modId="moderninhibited"
     mandatory=true
-    versionRange="[1.19.2-1.0.0, 1.19.2-1.0.2)"
+    versionRange="[1.18.2-1.0.0,)"
     ordering="NONE"
     side="BOTH"

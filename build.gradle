@@ -16,7 +16,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.19.2-2.0.0'
+version = "${mod_version}"
 group = 'io.github.kawaiicakes.nomorefortnite'
 archivesBaseName = 'nomorefortnite'
 
@@ -25,7 +25,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
 
-    mappings channel: 'parchment', version: '2022.08.14-1.19.2'
+    mappings channel: 'parchment', version: "${parchment_version}"
 
     runs {
         client {
@@ -106,9 +106,9 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.14'
+    minecraft "net.minecraftforge:forge:${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation fg.deobf("curse.maven:modern-inhibited-881733:4768496")
+    implementation fg.deobf("curse.maven:modern-inhibited-881733:${inhibited_version}")
 }
 
 jar {
