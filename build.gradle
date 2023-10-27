@@ -108,7 +108,7 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation fg.deobf("curse.maven:modern-inhibited-881733:${inhibited_version}")
+    compileOnly fg.deobf("curse.maven:modern-inhibited-881733:${inhibited_version}")
 }
 
 jar {
